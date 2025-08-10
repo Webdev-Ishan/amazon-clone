@@ -1,102 +1,188 @@
+// app/page.js
 import Image from "next/image";
+import {
+  FaLocationCrosshairs,
+  FaMagnifyingGlass,
+  FaGlobe,
+  FaCartShopping,
+  FaBars,
+} from "react-icons/fa6";
 
 export default function Home() {
-  return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const products = [
+    { title: "Clothes", img: "/box1_image.jpg" },
+    { title: "Health & Personal Care", img: "/box2_image.jpg" },
+    { title: "Furniture", img: "/box3_image.jpg" },
+    { title: "Mobiles", img: "/box4_image.jpg" },
+    { title: "Beauty Pics", img: "/box5_image.jpg" },
+    { title: "Pet Care", img: "/box6_image.jpg" },
+    { title: "New Arrival in Toys", img: "/box7_image.jpg" },
+    { title: "Discover Fashion Trends", img: "/box8_image.jpg" },
+  ];
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
+  return (
+    <div className="font-sans">
+      {/* NAVBAR */}
+      <div className="bg-[#0f1111] text-white flex flex-wrap items-center justify-between px-4 py-2 gap-2">
+        {/* Logo */}
+        <div className="relative h-8 w-16 sm:h-10 sm:w-20">
+          <Image
+            src="/amazon_logo.png"
+            alt="Amazon Logo"
+            fill
+            className="object-contain"
+          />
+        </div>
+
+        {/* Address (hidden on xs) */}
+        <div className="hidden sm:flex flex-col leading-tight">
+          <p className="text-[#ccc] text-xs">Deliver to</p>
+          <div className="flex items-center gap-1 text-sm">
+            <FaLocationCrosshairs /> India
+          </div>
+        </div>
+
+        {/* Search Bar */}
+        <div className="flex flex-1 order-last sm:order-none items-center bg-white rounded-full overflow-hidden border-2 border-transparent hover:border-[#febd68] max-w-full">
+          <select className="bg-[#f3f3f3] h-8 sm:h-10 w-14 pl-2 text-xs sm:text-sm outline-none">
+            <option>All</option>
+          </select>
+          <input
+            className="flex-1 px-2 text-xs sm:text-sm outline-none"
+            type="text"
+            placeholder="Search..."
+          />
+          <button className="bg-[#febd68] flex items-center justify-center w-10 sm:w-14 h-8 sm:h-10 text-white">
+            <FaMagnifyingGlass />
+          </button>
+        </div>
+
+        {/* Language */}
+        <div className="hidden sm:flex items-center gap-1">
+          <FaGlobe /> EN
+        </div>
+
+        {/* Sign In */}
+        <div className="hidden md:block leading-tight">
+          <p className="text-xs">Hello, sign in</p>
+          <p className="text-sm font-semibold">Account & Lists</p>
+        </div>
+
+        {/* Returns */}
+        <div className="hidden md:block leading-tight">
+          <p className="text-xs">Returns</p>
+          <p className="text-sm font-semibold">& Orders</p>
+        </div>
+
+        {/* Cart */}
+        <div className="flex items-center gap-1">
+          <FaCartShopping className="text-lg sm:text-2xl" />
+          <span className="hidden sm:inline">Cart</span>
+        </div>
+      </div>
+
+      {/* SECONDARY NAV */}
+      <div className="bg-[#222f3d] text-white text-xs sm:text-sm px-4 py-2 flex gap-4 overflow-x-auto whitespace-nowrap scrollbar-hide">
+        <div className="flex items-center gap-2 cursor-pointer">
+          <FaBars /> All
+        </div>
+        <p className="cursor-pointer">Today Deals</p>
+        <p className="cursor-pointer">Customer Service</p>
+        <p className="cursor-pointer">Registry</p>
+        <p className="cursor-pointer">Gift Cards</p>
+        <p className="cursor-pointer">Sell</p>
+      </div>
+
+      {/* HERO IMAGE */}
+      <div
+        className="h-[180px] sm:h-[300px] md:h-[350px] bg-cover bg-center flex justify-center items-end"
+        style={{ backgroundImage: "url('/hero_image.jpg')" }}
+      >
+        <div className="bg-white text-black text-xs sm:text-sm flex flex-wrap items-center justify-center p-2 sm:p-4 w-[95%] sm:w-[90%] mb-4 rounded-lg text-center">
+          You are on amazon.com. You can also shop on Amazon India.
           <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="https://www.amazon.in/"
+            className="text-[#007185] ml-1 hover:underline"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
+            Click here
           </a>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+      </div>
+
+      {/* SHOP SECTION */}
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 bg-[#e2e7e6] p-4">
+        {products.map((p, i) => (
+          <div key={i} className="bg-white p-4 rounded-lg flex flex-col">
+            <h2 className="text-sm sm:text-lg font-semibold">{p.title}</h2>
+            <div
+              className="h-28 sm:h-40 md:h-56 bg-cover bg-center my-4 rounded"
+              style={{ backgroundImage: `url(${p.img})` }}
+            ></div>
+            <p className="text-[#007185] text-xs sm:text-sm cursor-pointer">
+              See More
+            </p>
+          </div>
+        ))}
+      </div>
+
+      {/* FOOTER */}
+      <footer>
+        <div className="bg-[#37475a] h-10 sm:h-12 text-white flex items-center justify-center text-xs sm:text-sm cursor-pointer">
+          Back to Top
+        </div>
+
+        <div className="bg-[#222f3d] text-white grid grid-cols-2 sm:grid-cols-4 gap-6 px-4 py-6 text-xs sm:text-sm">
+          {[
+            {
+              title: "Get to Know Us",
+              links: ["Careers", "Amazon Newsletter", "About Amazon", "Accessibility"],
+            },
+            {
+              title: "Make Money with Us",
+              links: ["Sell on Amazon", "Affiliate Program", "Advertise Your Products"],
+            },
+            {
+              title: "Amazon Payment Products",
+              links: ["Business Card", "Shop with Points", "Reload Balance"],
+            },
+            {
+              title: "Let Us Help You",
+              links: ["Your Account", "Your Orders", "Shipping Rates", "Help"],
+            },
+          ].map((sec, idx) => (
+            <ul key={idx}>
+              <li className="font-semibold mb-2">{sec.title}</li>
+              {sec.links.map((l, i) => (
+                <li
+                  key={i}
+                  className="text-[#ddd] hover:underline cursor-pointer mb-1"
+                >
+                  {l}
+                </li>
+              ))}
+            </ul>
+          ))}
+        </div>
+
+        <div className="border-t border-gray-500 bg-[#232F3E] flex justify-center items-center h-14">
+          <div className="relative h-8 w-16 sm:h-10 sm:w-20">
+            <Image
+              src="/amazon_logo.png"
+              alt="Amazon Logo"
+              fill
+              className="object-contain"
+            />
+          </div>
+        </div>
+
+        <div className="bg-[#131A22] text-white flex flex-col items-center justify-center h-14 text-[10px] sm:text-xs px-2 text-center">
+          <div className="flex flex-wrap gap-2 justify-center mb-1">
+            <a href="#" className="hover:underline">Conditions of Use</a>
+            <a href="#" className="hover:underline">Privacy Notice</a>
+            <a href="#" className="hover:underline">Your Ads Privacy Choices</a>
+          </div>
+          <div>© 1996-2023, Amazon.com, Inc. or its affiliates</div>
+        </div>
       </footer>
     </div>
   );
