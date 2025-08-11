@@ -1,5 +1,7 @@
 // app/page.js
+"use client"
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import {
   FaLocationCrosshairs,
   FaMagnifyingGlass,
@@ -9,6 +11,7 @@ import {
 } from "react-icons/fa6";
 
 export default function Home() {
+  const router =useRouter();
   const products = [
     { title: "Clothes", img: "/box1_image.jpg" },
     { title: "Health & Personal Care", img: "/box2_image.jpg" },
@@ -64,7 +67,7 @@ export default function Home() {
 
         {/* Sign In */}
         <div className="hidden md:block leading-tight">
-          <p className="text-xs">Hello, sign in</p>
+          <p onClick={()=>router.push("/signIn")} className="text-xs cursor-pointer text-yellow-400">Hello, sign in</p>
           <p className="text-sm font-semibold">Account & Lists</p>
         </div>
 
