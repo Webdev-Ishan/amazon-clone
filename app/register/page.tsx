@@ -6,6 +6,7 @@ import { useState, FormEvent } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { supabase } from "@/lib/supabse";
 
 export default function Register() {
   const [name, setName] = useState<string>("");
@@ -15,7 +16,7 @@ export default function Register() {
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
 
-  const registerHandler = (e: FormEvent<HTMLFormElement>) => {
+  const registerHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError(null);
 
@@ -24,7 +25,34 @@ export default function Register() {
       return;
     }
 
-    alert("Form submitted successfully! (UI only)");
+    try {
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: { name },
+        },
+      });
+
+      if (error) {
+        setError(error.message);
+        return;
+      }
+
+      if (data.user) {
+        alert("Registration successful! Please check your email to confirm.");
+        router.push("/signIn");
+      }
+    } catch (err) {
+      if (err instanceof Error) {
+        setError(err.message);
+      }
+    } finally {
+      setEmail("");
+      setPassword("");
+      setName("");
+      setConfirmPassword("");
+    }
   };
 
   return (

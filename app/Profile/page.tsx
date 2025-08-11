@@ -1,9 +1,38 @@
 "use client";
 
+import { supabase } from "@/lib/supabse";
+import { User } from "@supabase/supabase-js";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function ProfilePage() {
+  const [userinfo, setuserinfo] = useState<User | null>();
+  const router = useRouter();
+  const getUserinfo = async () => {
+    try {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+      console.log(session);
+      if (session && session.user) {
+        setuserinfo(session.user);
+        console.log(session.user);
+      } else if (!session?.user) {
+        router.push("/signIn");
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        alert("Unable to fetch userinfo");
+        console.log(error);
+      }
+    }
+  };
+  useEffect(() => {
+    getUserinfo();
+  }, [userinfo, router]);
+
   return (
     <div className="min-h-screen bg-white text-gray-900">
       {/* Header */}
@@ -33,10 +62,10 @@ export default function ProfilePage() {
               />
             </div>
             <div>
-              <h1 className="text-2xl font-semibold text-[#131921]">John Doe</h1>
-              <p className="text-gray-700 text-sm mb-2">
-                john.doe@example.com
-              </p>
+              <h1 className="text-2xl font-semibold text-[#131921]">
+                {userinfo?.user_metadata.name}
+              </h1>
+              <p className="text-gray-700 text-sm mb-2">{userinfo?.email}</p>
               <p className="text-gray-600">
                 Prime Member since <span className="font-medium">2018</span>
               </p>
@@ -53,7 +82,7 @@ export default function ProfilePage() {
             Account Details
           </h2>
           <div className="grid sm:grid-cols-2 gap-6">
-            <div className="bg-[#f3f3f3] p-4 rounded-md">
+            <div className="bg-[#f3f3f3] p-4 hover:shadow-md transition duration-300 rounded-md">
               <h3 className="font-semibold text-lg mb-2">Shipping Address</h3>
               <p className="text-sm text-gray-700">
                 1234 Elm Street <br />
@@ -64,7 +93,7 @@ export default function ProfilePage() {
                 Edit Address
               </button>
             </div>
-            <div className="bg-[#f3f3f3] p-4 rounded-md">
+            <div className="bg-[#f3f3f3] p-4 hover:shadow-md transition duration-300 rounded-md">
               <h3 className="font-semibold text-lg mb-2">Payment Methods</h3>
               <p className="text-sm text-gray-700">
                 Visa ending in 1234 <br />
@@ -95,29 +124,16 @@ export default function ProfilePage() {
               </button>
             </div>
             <div className="p-4 flex gap-4">
-              <div className="relative w-20 h-20">
-                <Image
-                  src="/product_sample.jpg" // Add to /public
-                  alt="Product"
-                  fill
-                  className="object-cover rounded-md"
-                />
-              </div>
               <div>
                 <p className="font-medium">Echo Dot (4th Gen)</p>
-                <p className="text-sm text-gray-600">Smart speaker with Alexa</p>
+                <p className="text-sm text-gray-600">
+                  Smart speaker with Alexa
+                </p>
               </div>
             </div>
           </div>
         </section>
       </main>
-
-      {/* Footer */}
-      <footer className="bg-[#131921] text-white text-center py-6 mt-12">
-        <p className="text-sm">
-          © {new Date().getFullYear()} Amazon.com, Inc. or its affiliates
-        </p>
-      </footer>
     </div>
   );
 }

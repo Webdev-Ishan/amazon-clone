@@ -4,22 +4,47 @@ import { useState, FormEvent } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { supabase } from "@/lib/supabse";
 
 export default function Register() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const router  = useRouter();
+  const router = useRouter();
 
   const [error, setError] = useState<string | null>(null);
 
-  const registerHandler = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setError(null);
+ const registerHandler = async (e: FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+  setError(null);
 
+
+  try {
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+      
+    });
+
+    if (error) {
+      setError(error.message);
+      return;
+    }
+
+    if (data.user) {
+      alert("Login successful! Please check your email to confirm.");
+      router.push("/Profile");
+    }
+  } catch (err) {
+    if (err instanceof Error) {
+      setError(err.message);
+    }
+  } finally {
+    setEmail("");
+    setPassword("");
     
+  }
+};
 
-    alert("Form submitted successfully! (UI only)");
-  };
 
   return (
     <div className="min-h-screen bg-[#131921] flex flex-col text-black items-center justify-center px-4 py-10">
@@ -77,8 +102,6 @@ export default function Register() {
             />
           </div>
 
-          
-
           <button
             type="submit"
             className="w-full bg-[#f0c14b] border border-[#a88734] rounded-md py-3 text-sm font-semibold hover:bg-[#ddb347] active:bg-[#c7a22a] transition"
@@ -101,7 +124,10 @@ export default function Register() {
 
         <div className="mt-6 border-t pt-4 text-center text-sm">
           Do not have an account?{" "}
-          <button  onClick={()=>router.push("/register")} className="text-blue-600 hover:underline">
+          <button
+            onClick={() => router.push("/register")}
+            className="text-blue-600 hover:underline"
+          >
             Sign-Up
           </button>
         </div>
