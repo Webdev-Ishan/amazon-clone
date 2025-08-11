@@ -1,5 +1,5 @@
 // app/page.js
-"use client"
+"use client";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import {
@@ -11,7 +11,7 @@ import {
 } from "react-icons/fa6";
 
 export default function Home() {
-  const router =useRouter();
+  const router = useRouter();
   const products = [
     { title: "Clothes", img: "/box1_image.jpg" },
     { title: "Health & Personal Care", img: "/box2_image.jpg" },
@@ -67,8 +67,19 @@ export default function Home() {
 
         {/* Sign In */}
         <div className="hidden md:block leading-tight">
-          <p onClick={()=>router.push("/signIn")} className="text-xs cursor-pointer text-yellow-400"> Sign in</p>
-          <p onClick={()=>router.push("/Profile")} className="text-sm font-semibold text-yellow-500 cursor-pointer">Account</p>
+          <p
+            onClick={() => router.push("/signIn")}
+            className="text-xs cursor-pointer text-yellow-400"
+          >
+            {" "}
+            Sign in
+          </p>
+          <p
+            onClick={() => router.push("/Profile")}
+            className="text-sm font-semibold text-yellow-500 cursor-pointer"
+          >
+            Account
+          </p>
         </div>
 
         {/* Returns */}
@@ -116,9 +127,9 @@ export default function Home() {
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 bg-[#e2e7e6] p-4">
         {products.map((p, i) => (
           <div key={i} className="bg-white p-4 rounded-lg flex flex-col">
-            <h2 className="text-sm sm:text-lg font-semibold">{p.title}</h2>
+            <h2 className="text-sm text-black sm:text-lg font-semibold">{p.title}</h2>
             <div
-              className="h-28 sm:h-40 md:h-56 bg-cover bg-center my-4 rounded"
+              className="h-28 hover:shadow-md shadow-gray-900 sm:h-40 md:h-56 bg-cover bg-center my-4 rounded"
               style={{ backgroundImage: `url(${p.img})` }}
             ></div>
             <p className="text-[#007185] text-xs sm:text-sm cursor-pointer">
@@ -127,8 +138,6 @@ export default function Home() {
           </div>
         ))}
       </div>
-
-
     </div>
   );
 }
