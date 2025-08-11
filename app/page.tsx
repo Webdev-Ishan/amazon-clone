@@ -68,7 +68,7 @@ export default function Home() {
         {/* Sign In */}
         <div className="hidden md:block leading-tight">
           <p onClick={()=>router.push("/signIn")} className="text-xs cursor-pointer text-yellow-400">Hello, sign in</p>
-          <p className="text-sm font-semibold">Account & Lists</p>
+          <p onClick={()=>router.push("/Profile")} className="text-sm font-semibold text-yellow-500 cursor-pointer">Account & Lists</p>
         </div>
 
         {/* Returns */}
