@@ -102,11 +102,26 @@ export default function Home() {
         <div className="flex items-center gap-2 cursor-pointer">
           <FaBars /> All
         </div>
-        <p className="cursor-pointer">Today Deals</p>
-        <p className="cursor-pointer">Customer Service</p>
-        <p className="cursor-pointer">Registry</p>
-        <p className="cursor-pointer">Gift Cards</p>
-        <p className="cursor-pointer">Sell</p>
+        <Link
+          href="https://www.amazon.in/deals?ref_=nav_cs_gb"
+          className="cursor-pointer hover:text-yellow-500"
+        >
+          Today Deals
+        </Link>
+        <Link
+          href="https://www.amazon.in/gp/help/customer/display.html?nodeId=200507590&ref_=nav_cs_help"
+          className="cursor-pointer hover:text-yellow-500"
+        >
+          Customer Service
+        </Link>
+        <p
+          onClick={() => router.push("/BestSeller")}
+          className="cursor-pointer hover:text-yellow-500"
+        >
+          BestSeller
+        </p>
+        <p className="cursor-pointer hover:text-yellow-500">Gift Cards</p>
+        <p className="cursor-pointer hover:text-yellow-500">Sell</p>
       </div>
 
       {/* HERO IMAGE */}

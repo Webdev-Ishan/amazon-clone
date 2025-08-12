@@ -2,21 +2,39 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function AboutPage() {
+  const router = useRouter();
   return (
     <div className="min-h-screen bg-white text-gray-900">
-      {/* Header */}
-      <header className="bg-[#131921] p-4 flex items-center justify-center">
+      <header className="bg-[#131921] text-white p-4 flex items-center justify-between">
         <Link href="/">
           <Image
-            src="/amazon_logo.png" // In /public
+            src="/amazon_logo.png" // Place in /public
             alt="Amazon Logo"
             width={120}
             height={40}
             className="cursor-pointer"
           />
         </Link>
+        <nav className="space-x-4">
+          <span onClick={() => router.push("/")} className="hover:underline">
+            Home
+          </span>
+          <span
+            onClick={() => router.push("/Profile")}
+            className="hover:underline"
+          >
+            Profile
+          </span>
+          <span
+            onClick={() => router.push("/About")}
+            className="hover:underline"
+          >
+            About
+          </span>
+        </nav>
       </header>
 
       {/* Hero Banner */}
@@ -151,13 +169,6 @@ export default function AboutPage() {
           </p>
         </div>
       </main>
-
-      {/* Footer */}
-      <footer className="bg-[#131921] text-white text-center py-6 mt-12">
-        <p className="text-sm">
-          © {new Date().getFullYear()} Amazon.com, Inc. or its affiliates
-        </p>
-      </footer>
     </div>
   );
 }

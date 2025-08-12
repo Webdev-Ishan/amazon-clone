@@ -36,7 +36,7 @@ export default function ProfilePage() {
   return (
     <div className="min-h-screen bg-white text-gray-900">
       {/* Header */}
-      <header className="bg-[#131921] p-4 flex items-center justify-center">
+      <header className="bg-[#131921] text-white p-4 flex items-center justify-between">
         <Link href="/">
           <Image
             src="/amazon_logo.png" // Place in /public
@@ -46,6 +46,23 @@ export default function ProfilePage() {
             className="cursor-pointer"
           />
         </Link>
+        <nav className="space-x-4">
+          <span onClick={() => router.push("/")} className="hover:underline">
+            Home
+          </span>
+          <span
+            onClick={() => router.push("/Profile")}
+            className="hover:underline"
+          >
+            Profile
+          </span>
+          <span
+            onClick={() => router.push("/About")}
+            className="hover:underline"
+          >
+            About
+          </span>
+        </nav>
       </header>
 
       {/* Main Content */}
