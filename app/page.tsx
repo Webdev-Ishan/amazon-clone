@@ -1,6 +1,7 @@
 // app/page.js
 "use client";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import {
   FaLocationCrosshairs,
@@ -30,6 +31,7 @@ export default function Home() {
         {/* Logo */}
         <div className="relative h-8 w-16 sm:h-10 sm:w-20">
           <Image
+            onClick={() => router.push("/About")}
             src="/amazon_logo.png"
             alt="Amazon Logo"
             fill
@@ -126,15 +128,23 @@ export default function Home() {
       {/* SHOP SECTION */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 bg-[#e2e7e6] p-4">
         {products.map((p, i) => (
-          <div key={i} className="bg-white p-4 rounded-lg flex flex-col">
-            <h2 className="text-sm text-black sm:text-lg font-semibold">{p.title}</h2>
+          <div
+            key={i}
+            className="bg-white hover:shadow-md shadow-gray-90 p-4 transition duration-300 rounded-lg flex flex-col"
+          >
+            <h2 className="text-sm text-black sm:text-lg font-semibold">
+              {p.title}
+            </h2>
             <div
-              className="h-28 hover:shadow-md shadow-gray-900 sm:h-40 md:h-56 bg-cover bg-center my-4 rounded"
+              className="h-28 0 sm:h-40 md:h-56 bg-cover bg-center my-4 rounded"
               style={{ backgroundImage: `url(${p.img})` }}
             ></div>
-            <p className="text-[#007185] text-xs sm:text-sm cursor-pointer">
+            <Link
+              href="https://www.amazon.in/"
+              className="text-[#007185] text-xs sm:text-sm cursor-pointer"
+            >
               See More
-            </p>
+            </Link>
           </div>
         ))}
       </div>
